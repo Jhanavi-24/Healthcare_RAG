@@ -1,0 +1,23 @@
+
+.env
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# VS Code
+.vscode/
+
+# Mac system files
+.DS_Store
+
+# Pinecone / OpenAI test outputs
+*.log
