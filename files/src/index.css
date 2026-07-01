@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ── Light mode tokens ─────────────────────────────────── */
+:root {
+  --bg-cream: #F2EFE6;
+  --bg-gradient: linear-gradient(135deg, #E8F2EC 0%, #F2EFE6 40%, #EAF0F7 100%);
+  --panel: #FFFFFF;
+  --panel-alpha: rgba(255,255,255,0.82);
+  --sidebar-bg: rgba(255,255,255,0.70);
+
+  --sage: #3D8B72;
+  --sage-dark: #2D6B57;
+  --sage-light: #E8F2EC;
+  --sage-pill: #EAF3EE;
+
+  --text-primary: #1F2421;
+  --text-secondary: #6B7268;
+  --text-tertiary: #9CA39A;
+
+  --border: #DDD9CE;
+  --border-soft: #E8E4DA;
+
+  --amber-bg: #FDF3DE;
+  --amber-text: #8A6515;
+  --amber-border: #F2DFAE;
+
+  --user-bubble: #3D8B72;
+  --user-text: #FFFFFF;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-pill: 999px;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --shadow-card: 0 1px 2px rgba(31,36,33,0.04), 0 4px 16px rgba(31,36,33,0.08);
+  --shadow-panel: 0 2px 12px rgba(31,36,33,0.06);
+
+  --orb1: rgba(93,202,165,0.22);
+  --orb2: rgba(61,139,114,0.14);
+  --orb3: rgba(170,200,230,0.18);
+}
+
+/* ── Dark mode tokens ──────────────────────────────────── */
+[data-theme="dark"] {
+  --bg-cream: #0F1714;
+  --bg-gradient: linear-gradient(135deg, #0D1A14 0%, #111B1F 50%, #0E1620 100%);
+  --panel: #1A2420;
+  --panel-alpha: rgba(22,32,28,0.90);
+  --sidebar-bg: rgba(15,24,20,0.95);
+
+  --sage: #4CAF8A;
+  --sage-dark: #3D8B72;
+  --sage-light: rgba(76,175,138,0.15);
+  --sage-pill: rgba(76,175,138,0.12);
+
+  --text-primary: #E8F0EC;
+  --text-secondary: #8BA89A;
+  --text-tertiary: #556860;
+
+  --border: rgba(255,255,255,0.08);
+  --border-soft: rgba(255,255,255,0.05);
+
+  --amber-bg: rgba(239,159,39,0.12);
+  --amber-text: #EFC96A;
+  --amber-border: rgba(239,159,39,0.25);
+
+  --user-bubble: #2D6B57;
+  --user-text: #E8F0EC;
+
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.25);
+  --shadow-panel: 0 2px 12px rgba(0,0,0,0.3);
+
+  --orb1: rgba(29,158,117,0.18);
+  --orb2: rgba(45,107,87,0.22);
+  --orb3: rgba(15,40,80,0.30);
+}
+
+/* ── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--bg-cream);
+  transition: background 0.35s ease;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+button { font-family: inherit; cursor: pointer; }
+input, textarea { font-family: inherit; }
+
+::selection {
+  background: var(--sage-light);
+  color: var(--sage-dark);
+}
+
+/* ── Animated mesh background ───────────────────────────── */
+.app-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--bg-gradient);
+  overflow: hidden;
+}
+.app-bg::before,
+.app-bg::after,
+.app-bg .orb3 {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+}
+.app-bg::before {
+  width: 520px; height: 520px;
+  top: -120px; left: -80px;
+  background: radial-gradient(circle, var(--orb1), transparent 70%);
+  animation: drift1 18s ease-in-out infinite alternate;
+}
+.app-bg::after {
+  width: 400px; height: 400px;
+  bottom: -80px; right: 60px;
+  background: radial-gradient(circle, var(--orb2), transparent 70%);
+  animation: drift2 22s ease-in-out infinite alternate;
+}
+.app-bg .orb3 {
+  width: 300px; height: 300px;
+  top: 45%; right: 28%;
+  background: radial-gradient(circle, var(--orb3), transparent 70%);
+  animation: drift3 28s ease-in-out infinite alternate;
+}
+
+@keyframes drift1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(60px, 80px) scale(1.12); }
+}
+@keyframes drift2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-50px, -60px) scale(1.08); }
+}
+@keyframes drift3 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(40px, -50px) scale(0.92); }
+}
+
+/* ── Layout shell ───────────────────────────────────────── */
+.app-shell {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 280px 1fr 320px;
+  height: 100vh;
+  background: transparent;
+}
+@media (max-width: 1100px) {
+  .app-shell { grid-template-columns: 260px 1fr; }
+}
+@media (max-width: 800px) {
+  .app-shell { grid-template-columns: 1fr; }
+}
+
+/* ── Smooth transitions on theme change ─────────────────── */
+.app-shell, aside, main, .bubble-ai, .source-card,
+.session-item, .doc-item, .upload-zone, .input-row,
+.chat-header, .chat-body {
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
